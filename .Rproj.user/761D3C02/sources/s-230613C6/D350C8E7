@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1560082466658.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "D350C8E7",
+    "lastKnownWriteTime" : 1560082866,
+    "last_content_update" : 1560082866401,
+    "path" : "~/GitHub/shipsDubelApp/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+        "cursorPosition" : "15,20",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

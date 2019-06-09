@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1560082625291.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "947900450",
+    "id" : "5768D44E",
+    "lastKnownWriteTime" : 1560068919,
+    "last_content_update" : 1560068919,
+    "path" : "~/GitHub/shipsDubelApp/R/module-vesselDropdown.R",
+    "project_path" : "R/module-vesselDropdown.R",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

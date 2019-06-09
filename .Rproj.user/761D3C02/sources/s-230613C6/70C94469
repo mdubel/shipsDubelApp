@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3257136408",
+    "hash" : "0",
     "id" : "70C94469",
-    "lastKnownWriteTime" : 1560082902,
-    "last_content_update" : 1560082902898,
+    "lastKnownWriteTime" : 1560096603,
+    "last_content_update" : 1560096603,
     "path" : "~/GitHub/shipsDubelApp/global.R",
     "project_path" : "global.R",
     "properties" : {
-        "cursorPosition" : "6,18",
+        "cursorPosition" : "10,0",
         "scrollLine" : "0"
     },
     "relative_order" : 1,

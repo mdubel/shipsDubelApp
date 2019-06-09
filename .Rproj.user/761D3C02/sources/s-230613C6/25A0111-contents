@@ -25,7 +25,7 @@ ui <- function() {
           width = 12,
           box(
             width = 12,
-            leafletOutput("distanceMap", width = "100%", height = "700px")
+            leafletOutput("distanceMap", width = "100%", height = "500px")
           )
         )
       ),

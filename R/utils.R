@@ -7,7 +7,6 @@
 #'
 #' @examples getDropdownChoices(c("kota", "kota", "ma", "ala"))
 getDropdownChoices <- function(input.vector) {
-  stopifnot(is.character(input.vector))
   stopifnot(length(input.vector) > 0)
 
   return(input.vector %>% unique() %>% sort())

@@ -10,7 +10,7 @@ function(input, output, session) {
       id = "vesselDropdownType",
       label = "Type",
       is.searchable = FALSE,
-      choices = glb.ships.data$ship_type %>% getDropdownChoices()
+      choices = glb.ships.data$SHIP_TYPE %>% getDropdownChoices()
     )
 
   # VESSEL NAME ----
@@ -18,7 +18,7 @@ function(input, output, session) {
   rctAvailableNames <- reactive({
     req(rtnVessel$vessel.type())
     req(rtnVessel$vessel.type() != "")
-    glb.ships.data[ship_type == rtnVessel$vessel.type(), SHIPNAME] %>% getDropdownChoices()
+    glb.ships.data[SHIP_TYPE == rtnVessel$vessel.type(), SHIP_NAME] %>% getDropdownChoices()
   })
 
   # save the name to object according to the type selected
@@ -35,27 +35,28 @@ function(input, output, session) {
 
   # DATA FOR SELECTED VESSEL ----
   rctVesselData <- reactive({
-    req(rtnVessel$vessel.type())
-    req(rtnVessel$vessel.type() != "")
-    req(rtnVessel$vessel.name())
+    req(rtnVessel$vessel.name)
     # to not react too quickly
     req(rtnVessel$vessel.name() %in% rctAvailableNames())
 
-    returned.data <- glb.ships.data[ship_type == rtnVessel$vessel.type() & SHIPNAME == rtnVessel$vessel.name() & is_parked == 0, ]
+    ship.data <- glb.ships.data[SHIP_TYPE == rtnVessel$vessel.type() & SHIP_NAME == rtnVessel$vessel.name(), ]
+    sailing.data <- ship.data[IS_PARKED == 0, ]
 
-    # for cases when ships does not sail show his parking location
-    if(nrow(returned.data) > 0) {
-      return(returned.data)
+    # for cases when ships does not sail show its last 'parking' location
+    if(nrow(sailing.data) > 0) {
+      return(sailing.data)
     } else {
-      return(tail(glb.ships.data[ship_type == rtnVessel$vessel.type() & SHIPNAME == rtnVessel$vessel.name(), ], 1))
+      return(ship.data %>% tail(., 1))
     }
   })
 
   # list of longest distance sailed (in meters) and index of observation
   rctLongestDistance <- reactive({
     req(rctVesselData)
+    # calculate the distance and index only if there are at least two points when ship was actually sailing
     if(nrow(rctVesselData()) > 1) {
       getLongestDistance(rctVesselData())
+    # otherwise there is no point in calculating distance thus return empty list  
     } else {
       list()
     }
@@ -63,9 +64,11 @@ function(input, output, session) {
 
   rctLongestDistanceData <- reactive({
     req(rctLongestDistance)
+    # distance is calculated between two points, we can call them 'from' and 'to'. $which is the index of 'from' observation thus we need to select this and the next one
     if(nrow(rctVesselData()) > 1) {
       rctVesselData()[rctLongestDistance()$which:(rctLongestDistance()$which + 1), ]
     } else {
+    # for 'parked' vessels just pass the data which is the last observed parking location  
       rctVesselData()
     }
   })
@@ -74,8 +77,10 @@ function(input, output, session) {
   # note about distance covered
   output$vesselInfo <- renderText({
     req(rctLongestDistance)
+    # for 'parked' vessels show the following info
     validate(need(nrow(rctVesselData()) > 1, "Selected vessel does not sail in observed data."))
 
+    # here message can be edited
     sprintf("Vessel <b>%s</b> of type <b>%s</b> longest distance sailed was <b>%.2f</b> meters between <b>%s</b> and <b>%s</b>",
             rtnVessel$vessel.name(),
             rtnVessel$vessel.type(),

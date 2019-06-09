@@ -36,7 +36,6 @@ vesselDropdown <- function(input, output, session,
                            is.searchable = FALSE) {
 
   # DROPDOWN ----
-  # TODO try not to show initial empty element
   output$vesselDropdownUI <- renderUI({
     shinyWidgets::pickerInput(
       session$ns('vesselDropdown'),

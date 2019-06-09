@@ -22,5 +22,7 @@ $RECYCLE.BIN/
 # Operating System Files
 # =========================
 data/ships.csv
-.Rproj.user/*
+.Rproj.user/
 .Rproj
+data/ships_organised.csv
+

@@ -4,6 +4,7 @@ library(magrittr)
 library(shinyWidgets)
 library(geosphere)
 library(leaflet)
+library(data.table)
 
 ui <- function() {
   dashboardPage(

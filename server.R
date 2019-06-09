@@ -10,7 +10,7 @@ function(input, output, session) {
       id = "vesselDropdownType",
       label = "Type",
       is.searchable = FALSE,
-      choices = glb.ships.data$ship_type %>% getDropdownChoices()
+      choices = glb.ships.data$SHIP_TYPE %>% getDropdownChoices()
     )
 
   # VESSEL NAME ----
@@ -18,7 +18,7 @@ function(input, output, session) {
   rctAvailableNames <- reactive({
     req(rtnVessel$vessel.type())
     req(rtnVessel$vessel.type() != "")
-    glb.ships.data[ship_type == rtnVessel$vessel.type(), SHIPNAME] %>% getDropdownChoices()
+    glb.ships.data[SHIP_TYPE == rtnVessel$vessel.type(), SHIP_NAME] %>% getDropdownChoices()
   })
 
   # save the name to object according to the type selected
@@ -35,12 +35,12 @@ function(input, output, session) {
 
   # DATA FOR SELECTED VESSEL ----
   rctVesselData <- reactive({
-    req(rtnVessel$vessel.name())
+    req(rtnVessel$vessel.name)
     # to not react too quickly
     req(rtnVessel$vessel.name() %in% rctAvailableNames())
 
-    ship.data <- glb.ships.data[ship_type == rtnVessel$vessel.type() & SHIPNAME == rtnVessel$vessel.name(), ]
-    sailing.data <- ship.data[is_parked == 0, ]
+    ship.data <- glb.ships.data[SHIP_TYPE == rtnVessel$vessel.type() & SHIP_NAME == rtnVessel$vessel.name(), ]
+    sailing.data <- ship.data[IS_PARKED == 0, ]
 
     # for cases when ships does not sail show its last 'parking' location
     if(nrow(sailing.data) > 0) {
